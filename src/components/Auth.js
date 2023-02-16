@@ -1,4 +1,5 @@
-import {useState} from 'react'
+import axios from 'axios';
+import {useState} from 'react';
  
 const Auth = () => {
    const [username, setUsername] = useState('')
@@ -7,8 +8,34 @@ const Auth = () => {
  
    const submitHandler = e => {
        e.preventDefault()
- 
-       console.log('submitHandler called')
+
+		const body = {
+			username,
+			password
+		}
+		const url = 'https://socialmtn.devmountain.com'
+        if (register) {
+            //user is registering
+            axios.post(`${url}/register`, body)
+				.then(({data}) => {
+					console.log(data)
+				})
+				.catch((err) => {
+					setPassword('');
+					setUsername('');
+				})
+        }
+        else {
+            //user is logging in
+            axios.post(`${url}/login`, body)
+			.then(({data}) => {
+				console.log(data)
+			})
+			.catch((err) => {
+				setPassword('');
+				setUsername('');
+			})
+        }
    }
  
    return (
@@ -16,16 +43,24 @@ const Auth = () => {
            <h1>Welcome!</h1>
            <form className='form auth-form' onSubmit={submitHandler}>
                <input
+                   type='text'
+                   placeholder='Username'
+                   value={username}
+                   onChange={(e) => setUsername(e.target.value)}
                    className='form-input'/>
                <input
+                    type='password'
+                    placeholder='Password'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                    className='form-input'/>
                <button className='form-btn'>
                    {register ? 'Sign Up' : 'Login'}
                </button>
            </form>
-           <button className='form-btn'>Need to {register ? 'Login' : 'Sign Up'}?</button>
+           <button onClick={() => setRegister(!register)} className='form-btn'>Need to {register ? 'Login' : 'Sign Up'}?</button>
        </main>
    )
 }
  
-export default Auth
+export default Auth;
