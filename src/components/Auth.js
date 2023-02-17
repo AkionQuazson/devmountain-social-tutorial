@@ -1,10 +1,13 @@
 import axios from 'axios';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
+import AuthContext from '../store/authContext.js'
  
 const Auth = () => {
    const [username, setUsername] = useState('')
    const [password, setPassword] = useState('')
    const [register, setRegister] = useState(true)
+
+   const authCtx = useContext(AuthContext);
  
    const submitHandler = e => {
        e.preventDefault()
@@ -18,7 +21,8 @@ const Auth = () => {
             //user is registering
             axios.post(`${url}/register`, body)
 				.then(({data}) => {
-					console.log(data)
+console.log(data)
+					authCtx.login(data)
 				})
 				.catch((err) => {
 					setPassword('');
@@ -29,7 +33,8 @@ const Auth = () => {
             //user is logging in
             axios.post(`${url}/login`, body)
 			.then(({data}) => {
-				console.log(data)
+console.log(data)
+				authCtx.login(data)
 			})
 			.catch((err) => {
 				setPassword('');
