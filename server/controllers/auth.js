@@ -1,7 +1,8 @@
-export const login = () => {
-    console.log('login');
-}
-
-export const logout = () => {
-    console.log('logout');
+module.exports = {
+    login: () => {
+        console.log('login');
+    },
+    register: () => {
+        console.log('register');
+    }
 }
