@@ -1,8 +1,11 @@
-module.exports = {
-    login: () => {
-        console.log('login');
-    },
-    register: () => {
-        console.log('register');
-    }
+const login = (req, res) => {
+    console.log('login');
 }
+const register = (req, res) => {
+    console.log('register');
+}
+
+module.exports = {
+    login, 
+    register
+};

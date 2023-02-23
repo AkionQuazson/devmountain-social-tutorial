@@ -1,17 +1,22 @@
+const getAllPosts = (req, res) => {
+    console.log('gotta catch em all');
+}
+const getCurrentUserPosts = (req, res) => {
+    console.log('gotta catch em all');
+}
+const addPost = (req, res) => {
+    console.log('gotta catch em all');
+}
+const editPost = (req, res) => {
+    console.log('gotta catch em all');
+}
+const deletePost = (req, res) => {
+    console.log('gotta catch em all');
+}
 module.exports = {
-    getAllPosts: () => {
-        console.log('gotta catch em all');
-    },
-    getCurrentUserPosts: () => {
-        console.log('your posts, sir');
-    },
-    addPost: () => {
-        console.log('new post! sweet!');
-    },
-    editPost: () => {
-        console.log('didnt quite like that?');
-    },
-    deletePost: () => {
-        console.log('really didnt like that, i see');
-    }
+    getAllPosts,
+    getCurrentUserPosts,
+    addPost,
+    editPost,
+    deletePost
 }

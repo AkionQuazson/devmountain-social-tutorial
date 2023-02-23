@@ -1,19 +1,29 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const {PORT} = process.env;
+require('dotenv').config()
 
-import {login, register} from './controllers/auth';
-import {getAllPosts, getCurrentUserPosts, addPost, editPost, deletePost} from './controllers/posts';
-import { isAuthenticated } from './middleware/isAuthenticated';
+const express = require('express')
+const cors = require('cors')
 
-const app = express();
+const {SERVER_PORT} = process.env
+const {getAllPosts, getCurrentUserPosts, addPost, editPost, deletePost} = require('./controllers/posts')
+const {register, login} = require('./controllers/auth')
+const {isAuthenticated} = require('./middleware/isAuthenticated')
+
+const app = express()
+
 app.use(express.json())
 app.use(cors())
 
-app.post('/register', register);
-app.post('/login', login);
+//AUTH
+app.post('/register', register)
+app.post('/login', login)
 
-app.listen(PORT, ()=>{
-    console.log(`Running on port ${PORT}`)
-})
+// GET POSTS - no auth
+app.get('/posts', getAllPosts)
+
+// CRUD POSTS - auth required
+app.get('/userposts/:userId', isAuthenticated, getCurrentUserPosts)
+app.post('/posts', isAuthenticated, addPost)
+app.put('/posts/:id', isAuthenticated, editPost)
+app.delete('/posts/:id', isAuthenticated, deletePost)
+
+app.listen(SERVER_PORT, () => console.log(`server on ${SERVER_PORT}`))

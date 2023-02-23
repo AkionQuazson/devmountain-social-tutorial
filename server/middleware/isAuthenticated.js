@@ -6,7 +6,7 @@ module.exports = {
     isAuthenticated: (req, res, next) => {
         const headerToken = req.get('Authorization')
 
-        //confirms that there is a header, which means 
+        //confirms that there is a header, which means that the user has sent a request
         if (!headerToken) {
             console.log('ERROR IN auth middleware')
             res.sendStatus(401)
@@ -30,7 +30,7 @@ module.exports = {
             throw error
         }
 
-        //runs the next function passed into this function.
+        //runs the next function in the endpoint.
         next()
     }
 }
