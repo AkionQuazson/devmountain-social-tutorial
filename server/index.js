@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 User.hasMany(Post);
+Post.belongsTo(User);
 
 
 app.post('/register', register);
@@ -29,4 +30,8 @@ app.post('/posts', isAuthenticated, addPost);
 app.put('/posts/:id', isAuthenticated, editPost);
 app.delete('/posts/:id', isAuthenticated, deletePost);
 
-app.listen(SERVER_PORT, () => console.log(`server on ${SERVER_PORT}`));
+sequelize.sync()
+.then(() => {
+    app.listen(SERVER_PORT, () => console.log(`server on ${SERVER_PORT}`));
+})
+.catch((error) => console.log(error));

@@ -9,7 +9,7 @@ module.exports = {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             allowNull: false,
-            pirmaryKey: true
+            primaryKey: true
         },
         username: DataTypes.STRING,
         hashedPass: DataTypes.STRING
