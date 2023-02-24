@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {useState, useContext} from 'react';
-import AuthContext from '../store/authContext.js'
+import AuthContext from '../store/authContext.js';
  
 const Auth = () => {
    const [username, setUsername] = useState('')
@@ -16,7 +16,8 @@ const Auth = () => {
 			username,
 			password
 		}
-		const url = 'https://socialmtn.devmountain.com'
+		// const url = 'https://socialmtn.devmountain.com';
+		const url = 'http://localhost:4004';
         if (register) {
             //user is registering
             axios.post(`${url}/register`, body)
