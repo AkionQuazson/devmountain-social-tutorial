@@ -17,10 +17,9 @@ const Auth = () => {
 			password
 		}
 		// const url = 'https://socialmtn.devmountain.com';
-		const url = 'http://localhost:4004';
         if (register) {
             //user is registering
-            axios.post(`${url}/register`, body)
+            axios.post(`/register`, body)
 				.then(({data}) => {
 console.log(data)
 					authCtx.login(data)
@@ -32,7 +31,7 @@ console.log(data)
         }
         else {
             //user is logging in
-            axios.post(`${url}/login`, body)
+            axios.post(`/login`, body)
 			.then(({data}) => {
 console.log(data)
 				authCtx.login(data)

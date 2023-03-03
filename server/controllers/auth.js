@@ -12,9 +12,31 @@ const createToken = (username, id) => {
 const login = async (req, res) => {
     console.log('login');
     try {
-        
+        const {username, password} = req.body;
+        let foundUser = await User.findOne({where: {username}});
+        if (foundUser) {
+            const isAuthenticated = bcrypt.compareSync(password, foundUser.hashedPass);
+            if (isAuthenticated) {
+                const token = createToken(foundUser.dataValues.username, foundUser.dataValues.id);
+                const exp = Date.now() + 1000 * 60 * 60 * 48;
+                res.status(200).send({
+                    username: foundUser.dataValues.username,
+                    userId: foundUser.dataValues.id,
+                    token,
+                    exp
+                })
+            }
+            else {
+                res.status(400).send('cannot log in');
+            }
+        }
+        else {
+            res.status(400).send('cannot log in');
+        }
     } catch (error) {
-        
+        console.log('ERROR IN register');
+        console.log(error);
+        res.sendStatus(400);
     }
 }
 const register = async (req, res) => {
